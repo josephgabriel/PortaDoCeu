@@ -5,7 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Produto</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos para os botões de seleção de tamanho */
+        .size-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        .size-btn {
+            padding: 10px 20px;
+            border: 2px solid #ececec;
+            background: white;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .size-btn.selected {
+            border-color: #C98B39;
+            background: #C98B39;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
@@ -13,7 +37,8 @@
         <header style="flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
             <a href="index.html" style="text-decoration: none; color: #ff8758; font-weight: bold; font-size: 16px;">← Voltar</a>
             <img src="img/logo.png" class="logo" alt="Logo" style="width: 50px;">
-            <div style="width: 50px;"></div> </header>
+            <div style="width: 50px;"></div>
+        </header>
 
         <div id="detalhe-produto" style="padding: 20px;">
             </div>
@@ -22,13 +47,9 @@
     <script src="js/produtos.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // 1. Pega o ID da URL (ex: ?id=2)
             const urlParams = new URLSearchParams(window.location.search);
             const idProduto = parseInt(urlParams.get('id'));
-
-            // 2. Encontra o produto no array do seu produtos.js
             const produto = produtos.find(p => p.id === idProduto);
-
             const container = document.getElementById("detalhe-produto");
 
             if (!produto) {
@@ -36,13 +57,19 @@
                 return;
             }
 
-            // 3. Configura a mensagem automática do WhatsApp
-            const numeroWhatsapp = "558899075923"; // Substitua pelo número real do cliente (com DDD)
-            const textoMensagem = `Olá! Gostaria de encomendar o produto: *${produto.nome}* no valor de R$ ${produto.preco.toFixed(2).replace('.', ',')}.`;
-            // EncodeURIComponent serve para transformar espaços e acentos em um formato aceito em URLs
-            const linkWhatsapp = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(textoMensagem)}`;
+            // Configuração do número do cliente
+            const numeroWhatsapp = "5588999075923"; 
+            
+            // Tamanho selecionado por padrão
+            let tamanhoSelecionado = "Médio";
 
-            // 4. Injeta o HTML com os detalhes e o botão customizado
+            // Função interna para gerar o link do WhatsApp com o tamanho atualizado
+            function gerarLinkWhatsapp(tamanho) {
+                const textoMensagem = `Olá! Gostaria de encomendar o produto: *${produto.nome}*\nTamanho: *${tamanho}*\nValor: R$ ${produto.preco.toFixed(2).replace('.', ',')}.`;
+                return `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(textoMensagem)}`;
+            }
+
+            // Injeta a estrutura base do produto e os botões de tamanho
             container.innerHTML = `
                 <div style="text-align: center; margin-bottom: 20px;">
                     <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.src='https://placehold.co/300x300?text=${encodeURIComponent(produto.nome)}'" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
@@ -51,14 +78,38 @@
                 <h1 style="color: #444; font-size: 22px; margin-bottom: 10px;">${produto.nome}</h1>
                 <p style="color: #ff8758; font-size: 28px; font-weight: bold; margin-bottom: 20px;">R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
                 
-                <p style="color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 30px;">
-                    Lindo ícone religioso perfeito para presentear ou decorar seu altar de devoção. Feito com materiais de excelente qualidade.
-                </p>
+                <p style="color: #444; font-weight: 600; font-size: 14px; margin-bottom: 10px; text-align: center;">Selecione o Tamanho:</p>
+                
+                <div class="size-selector">
+                    <button class="size-btn" data-size="Pequeno">P (10cm)</button>
+                    <button class="size-btn selected" data-size="Médio">M (20cm)</button>
+                    <button class="size-btn" data-size="Grande">G (30cm)</button>
+                </div>
 
-                <a href="${linkWhatsapp}" target="_blank" style="display: flex; align-items: center; justify-content: center; background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 30px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 12px rgba(37,211,102,0.3); transition: 0.25s;">
+                <a id="whatsapp-btn" href="${gerarLinkWhatsapp(tamanhoSelecionado)}" target="_blank" style="display: flex; align-items: center; justify-content: center; background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 30px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 12px rgba(37,211,102,0.3); text-align: center;">
                     Pedir pelo WhatsApp
                 </a>
             `;
+
+            // Lógica para alternar a seleção dos botões e atualizar o link de envio
+            const botoesTamanho = document.querySelectorAll(".size-btn");
+            const botaoWhats = document.getElementById("whatsapp-btn");
+
+            botoesTamanho.forEach(botao => {
+                botao.addEventListener("click", (e) => {
+                    // Remove a classe selecionada de todos os botões de tamanho
+                    botoesTamanho.forEach(b => b.classList.remove("selected"));
+                    
+                    // Adiciona a classe no botão clicado
+                    e.target.classList.add("selected");
+                    
+                    // Atualiza a variável do tamanho escolhido
+                    tamanhoSelecionado = e.target.getAttribute("data-category") || e.target.getAttribute("data-size");
+                    
+                    // Atualiza o link do botão do WhatsApp em tempo real
+                    botaoWhats.setAttribute("href", gerarLinkWhatsapp(tamanhoSelecionado));
+                });
+            });
         });
     </script>
 </body>
