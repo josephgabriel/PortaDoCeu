@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Santa Fé - Artigos Religiosos</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="phone">
+
+        <!-- ================= HEADER ================= -->
+
+        <header>
+
+            <img src="img/logo.png" class="logo" alt="Logo">
+
+        </header>
+
+        <!-- ================= BANNER ================= -->
+
+        <div class="banner">
+
+            <img src="img/banner.png" alt="Banner">
+
+        </div>
+
+        <div id="inicio"></div>
+
+        <!-- ================= PESQUISA ================= -->
+
+        <div class="search-box" style="padding: 0 16px; margin-top: 15px;">
+             <input type="text" id="search-input" placeholder="Pesquisar ícones..." style="width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #ececec; outline: none;">
+        </div>
+
+        <div class="filters">
+             <button class="filter-btn active" data-category="inicio">Início</button>
+             <button class="filter-btn" data-category="jesus">Jesus</button>
+             <button class="filter-btn" data-category="familia">Sagrada Família</button>
+             <button class="filter-btn" data-category="maria">Virgem Maria</button>
+             <button class="filter-btn" data-category="anjos">Anjos</button>
+             <button class="filter-btn" data-category="jose">São José</button>
+             <button class="filter-btn" data-category="santos">Santos e Beatos</button>
+             <button class="filter-btn" data-category="santos">Advento</button>
+        </div>
+
+        <div id="main-content"></div>
+
+    </div> <script src="js/produtos.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

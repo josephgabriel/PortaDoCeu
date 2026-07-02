@@ -1,0 +1,248 @@
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+body{
+
+    background:#d7d7d7;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:100vh;
+
+    font-family:Montserrat,sans-serif;
+
+}
+
+.phone{
+
+    width:390px;
+
+    height:844px;
+
+    background:white;
+
+    border-radius:35px;
+
+    overflow:auto;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+
+}
+
+header{
+
+    padding:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.logo{
+
+    width:75px;
+
+}
+
+.menu{
+
+    display:flex;
+
+    gap:40px;
+
+    color:#f3aa0d;
+
+    font-weight:600;
+
+}
+
+.banner img{
+
+    width:100%;
+
+    height:180px;
+
+    object-fit:cover;
+
+}
+
+.phone {
+    width: 390px;
+    height: 844px;
+    background: white;
+    border-radius: 35px;
+    overflow-y: auto; /* Garante a rolagem vertical interna */
+    position: relative; /* Base para o posicionamento dos filhos */
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+/* ================= FILTROS ================= */
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto; /* Permite deslizar na horizontal */
+    padding: 16px;
+    
+    /* Faz a barra travar no topo do .phone ao rolar para baixo */
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: white;
+    
+    /* Esconde a barra de rolagem feia no Windows/Linux para parecer app */
+    scrollbar-width: none; 
+    -webkit-overflow-scrolling: touch; /* Rotação suave no mobile */
+}
+
+/* Sub-bloco para organizar as grades de produtos dentro das categorias */
+.category-section {
+    margin-bottom: 25px;
+}
+
+.filters a, .filters .filter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: #444;
+    background: white;
+    padding: 12px 20px;
+    overflow-x: auto;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    border: 1px solid #ececec;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    transition: .25s;
+    cursor: pointer; /* Adicionado para dar efeito de clique */
+    font-family: inherit; /* Mantém a fonte Montserrat */
+}
+
+.filters .filter-btn:hover {
+    background: #C98B39;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Garante o destaque do botão ativo */
+.filters .filter-btn.active {
+    background: #C98B39;
+    color: white;
+    border-color: #C98B39;
+}
+
+.search{
+
+    width:55px;
+
+}
+
+.title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 18px;
+
+    margin-bottom:15px;
+
+}
+
+.title h2{
+
+    color:#ff8758;
+
+}
+
+.title a{
+
+    color:#ff8758;
+
+}
+
+.products{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+    padding:18px;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.card img{
+
+    width:100%;
+
+    height:180px;
+
+    object-fit:cover;
+
+}
+
+.card h3{
+
+    font-size:15px;
+
+    font-weight:500;
+
+    text-align:center;
+
+    padding:12px;
+
+}
+
+.card p{
+
+    color:#ff8758;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    text-align:center;
+
+    padding-bottom:18px;
+
+}
