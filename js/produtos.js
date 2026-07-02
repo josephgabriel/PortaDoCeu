@@ -4,7 +4,7 @@ const produtos = [
     nome: "Sagrada Família 01",
     categoria: "familia",
     preco: 0,
-    imagem: "img/sagrada-familia.jpg" // Coloque imagens reais ou links placeholder dentro da pasta img/
+    imagem: "img/sagradafamilia01.jpeg" // Coloque imagens reais ou links placeholder dentro da pasta img/
   },
   {
     id: 2,
